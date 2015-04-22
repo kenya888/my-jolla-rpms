@@ -1,0 +1,55 @@
+have_library: checking for main() in -lmarisa... -------------------- yes
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/armv7hl-linux-eabi -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -I/home/mersdk/share/mersdkrpmbuild/SOURCES/marisa-0.2.4/lib  -D_FILE_OFFSET_BITS=64  -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -mno-thumb -Wno-psabi -fPIC conftest.c  -L. -L/usr/lib -L/home/mersdk/share/mersdkrpmbuild/SOURCES/marisa-0.2.4/lib/.libs -L.  -rdynamic -Wl,-export-dynamic     -lruby  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/armv7hl-linux-eabi -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -I/home/mersdk/share/mersdkrpmbuild/SOURCES/marisa-0.2.4/lib  -D_FILE_OFFSET_BITS=64  -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -mno-thumb -Wno-psabi -fPIC conftest.c  -L. -L/usr/lib -L/home/mersdk/share/mersdkrpmbuild/SOURCES/marisa-0.2.4/lib/.libs -L.  -rdynamic -Wl,-export-dynamic     -lruby -lmarisa  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function 't':
+conftest.c:4:53: error: 'main' undeclared (first use in this function)
+conftest.c:4:53: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c:4:28: warning: variable 'p' set but not used [-Wunused-but-set-variable]
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+"gcc -o conftest -I/usr/include/ruby-1.9.1/armv7hl-linux-eabi -I/usr/include/ruby-1.9.1/ruby/backward -I/usr/include/ruby-1.9.1 -I. -I/home/mersdk/share/mersdkrpmbuild/SOURCES/marisa-0.2.4/lib  -D_FILE_OFFSET_BITS=64  -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=vfpv3-d16 -mno-thumb -Wno-psabi -fPIC conftest.c  -L. -L/usr/lib -L/home/mersdk/share/mersdkrpmbuild/SOURCES/marisa-0.2.4/lib/.libs -L.  -rdynamic -Wl,-export-dynamic     -lruby -lmarisa  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+conftest.c: In function 't':
+conftest.c:4:1: warning: implicit declaration of function 'main' [-Wimplicit-function-declaration]
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: int t() { main(); return 0; }
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+/* end */
+
+--------------------
+
